@@ -40,6 +40,12 @@ describe('package', () => {
 		);
 	});
 
+	// npm refuses provenance for a new package unless access is public (the first publish failed
+	// on exactly that), and n8n verification needs provenance.
+	it('publishes publicly with provenance', () => {
+		expect(pkg.publishConfig).toEqual({ access: 'public', provenance: true });
+	});
+
 	it('has no runtime dependencies (an n8n verification rule)', () => {
 		expect(pkg.dependencies ?? {}).toEqual({});
 	});
