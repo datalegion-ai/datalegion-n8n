@@ -1,0 +1,61 @@
+# Publishes the package to npm when a vX.Y.Z tag is pushed. n8n only verifies community nodes
+# published from GitHub Actions with an npm provenance statement, so this is the only way a
+# release reaches npm (`prepublishOnly` refuses a publish from anywhere else).
+#
+# Auth: npm Trusted Publishing (OIDC) for this repo and workflow. NPM_TOKEN is only for a
+# publish before a trusted publisher can be set (npm needs the package to exist first); delete
+# the secret once it is. DEPLOY.md has the steps.
+
+name: Publish
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+# Never cancel a publish mid-upload.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish to npm
+    # Provenance needs a GitHub-hosted runner.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+
+      # Node 24 ships npm 11, which trusted publishing needs.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Check the tag matches package.json
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
+            echo "::error::tag ${GITHUB_REF_NAME} does not match package.json version ${version}"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test (unit + live API)
+        env:
+          DATALEGION_API_KEY: ${{ secrets.DATALEGION_API_KEY }}
+        run: npm test
+
+      # In CI, `n8n-node release` lints, builds and runs `npm publish` with provenance.
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm run release

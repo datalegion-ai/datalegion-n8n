@@ -1,0 +1,9 @@
+pre-commit:
+  commands:
+    lint:
+      run: npm run lint
+
+pre-push:
+  commands:
+    typecheck:
+      run: npm run typecheck

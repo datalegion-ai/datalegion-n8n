@@ -1,0 +1,65 @@
+{
+	"name": "n8n-nodes-datalegion",
+	"version": "0.1.0",
+	"description": "n8n node for Data Legion person and company enrichment and free data utilities",
+	"license": "MIT",
+	"homepage": "https://www.datalegion.ai",
+	"keywords": [
+		"n8n-community-node-package",
+		"n8n",
+		"datalegion",
+		"data-enrichment",
+		"person-enrichment",
+		"company-enrichment",
+		"b2b-data"
+	],
+	"author": {
+		"name": "Data Legion",
+		"email": "engineering@datalegion.ai",
+		"url": "https://www.datalegion.ai"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/datalegion-ai/datalegion-n8n.git"
+	},
+	"bugs": {
+		"url": "https://github.com/datalegion-ai/datalegion-n8n/issues"
+	},
+	"scripts": {
+		"build": "n8n-node build",
+		"build:watch": "tsc --watch",
+		"dev": "n8n-node dev",
+		"lint": "n8n-node lint",
+		"lint:fix": "n8n-node lint --fix",
+		"typecheck": "tsc -p tsconfig.test.json",
+		"test": "vitest run",
+		"release": "n8n-node release",
+		"prepublishOnly": "n8n-node prerelease"
+	},
+	"files": [
+		"dist",
+		"!dist/tsconfig.tsbuildinfo"
+	],
+	"n8n": {
+		"n8nNodesApiVersion": 1,
+		"strict": true,
+		"credentials": [
+			"dist/credentials/DataLegionApi.credentials.js"
+		],
+		"nodes": [
+			"dist/nodes/DataLegion/DataLegion.node.js"
+		]
+	},
+	"devDependencies": {
+		"@n8n/node-cli": "0.51.3",
+		"@vitest/coverage-v8": "^5.0.3",
+		"eslint": "9.39.5",
+		"lefthook": "^2.1.17",
+		"prettier": "3.9.9",
+		"typescript": "5.9.3",
+		"vitest": "^5.0.3"
+	},
+	"peerDependencies": {
+		"n8n-workflow": "*"
+	}
+}

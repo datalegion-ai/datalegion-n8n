@@ -1,0 +1,104 @@
+# OSV-Scanner configuration
+#
+# Add [[IgnoredVulns]] entries here when osv-scanner reports a CVE that
+# doesn't actually apply (false positive due to incorrect affected range,
+# unreachable code path, etc.). Always include a `reason` so the next
+# person knows why it's ignored.
+#
+# Every entry below is in dev tooling or the n8n-provided peer, pinned by n8n's own packages;
+# the published package has no dependencies (test/package.test.mjs). Recheck when they expire.
+
+[[IgnoredVulns]]
+id = "GHSA-3pq3-5fj3-cg6v"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-44g4-m2mj-wpvx"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-4hqw-qxg8-jxx2"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-542g-h47m-68v8"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-9fr6-4gfg-395g"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-c29m-xwm3-cm6r"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-j8rh-479h-cp32"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-m8m8-qj5v-23w3"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-mghh-pgcx-3jjj"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-r4gj-5m52-g5wh"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-vh66-26gq-q6x8"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-x97p-jq2g-jp4f"
+ignoreUntil = 2027-01-07
+reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
+
+[[IgnoredVulns]]
+id = "GHSA-vfj7-8cjw-p6xm"
+ignoreUntil = 2027-01-07
+reason = "braces: dev-only (eslint/vitest tooling), no fixed version exists. Never in the published package."
+
+[[IgnoredVulns]]
+id = "GHSA-4mjr-xmp4-gh2g"
+ignoreUntil = 2027-01-07
+reason = "qs: dev-only: @n8n/node-cli > @n8n/backend-network pins qs exactly. Never in the published package; overrides are banned by n8n's lint rules."
+
+[[IgnoredVulns]]
+id = "GHSA-x5fp-wj9c-mxmx"
+ignoreUntil = 2027-01-07
+reason = "qs: dev-only: @n8n/node-cli > @n8n/backend-network pins qs exactly. Never in the published package; overrides are banned by n8n's lint rules."
+
+[[IgnoredVulns]]
+id = "GHSA-528h-pc64-c93x"
+ignoreUntil = 2027-01-07
+reason = "stream-json: dev-only: @n8n/node-cli > @n8n/backend-common pins stream-json 1.x. Never in the published package; overrides are banned by n8n's lint rules."
+
+[[IgnoredVulns]]
+id = "GHSA-hqr4-qq8f-hg3x"
+ignoreUntil = 2027-01-07
+reason = "stream-json: dev-only: @n8n/node-cli > @n8n/backend-common pins stream-json 1.x. Never in the published package; overrides are banned by n8n's lint rules."
+
+[[IgnoredVulns]]
+id = "GHSA-mjw6-4jj6-33hc"
+ignoreUntil = 2027-01-07
+reason = "stream-json: dev-only: @n8n/node-cli > @n8n/backend-common pins stream-json 1.x. Never in the published package; overrides are banned by n8n's lint rules."
+
+[[IgnoredVulns]]
+id = "GHSA-w5hq-g745-h8pq"
+ignoreUntil = 2027-01-07
+reason = "uuid: dev-only: @n8n/node-cli > @langchain/classic and @langchain/community pin uuid 10. Never in the published package; overrides are banned by n8n's lint rules."

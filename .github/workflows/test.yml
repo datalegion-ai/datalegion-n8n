@@ -1,0 +1,50 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tests
+    # GitHub-hosted: the repo is public, and publish.yml needs a GitHub-hosted runner for provenance.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # n8n's own linter: the rules n8n checks before verifying a community node.
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      # Live tests call the production API; a fork's PR has no secret and fails them, so a
+      # maintainer re-runs after review.
+      - name: Test (unit + live API)
+        env:
+          DATALEGION_API_KEY: ${{ secrets.DATALEGION_API_KEY }}
+        run: npm test
