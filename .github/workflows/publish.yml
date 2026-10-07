@@ -2,9 +2,9 @@
 # published from GitHub Actions with an npm provenance statement, so this is the only way a
 # release reaches npm (`prepublishOnly` refuses a publish from anywhere else).
 #
-# Auth: npm Trusted Publishing (OIDC) for this repo and workflow. NPM_TOKEN is only for a
-# publish before a trusted publisher can be set (npm needs the package to exist first); delete
-# the secret once it is. DEPLOY.md has the steps.
+# Auth: npm Trusted Publishing (OIDC), no token. npm trusts this repo, this workflow and the
+# `npm` environment, which only v*.*.* tags can deploy to; only repo admins can push those tags
+# (both in datalegion-infra stacks/github). The package refuses token publishes.
 
 name: Publish
 
@@ -26,6 +26,7 @@ jobs:
     # Provenance needs a GitHub-hosted runner.
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    environment: npm
     permissions:
       contents: read
       id-token: write
@@ -56,6 +57,4 @@ jobs:
 
       # In CI, `n8n-node release` lints, builds and runs `npm publish` with provenance.
       - name: Publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run release

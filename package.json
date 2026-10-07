@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-datalegion",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n node for Data Legion person and company enrichment and free data utilities",
 	"license": "MIT",
 	"homepage": "https://www.datalegion.ai",
