@@ -102,3 +102,18 @@ reason = "stream-json: dev-only: @n8n/node-cli > @n8n/backend-common pins stream
 id = "GHSA-w5hq-g745-h8pq"
 ignoreUntil = 2027-01-07
 reason = "uuid: dev-only: @n8n/node-cli > @langchain/classic and @langchain/community pin uuid 10. Never in the published package; overrides are banned by n8n's lint rules."
+
+[[IgnoredVulns]]
+id = "GHSA-8r5x-fm3f-whwj"
+ignoreUntil = 2027-01-07
+reason = "handlebars 4.7.9 (dev only): @n8n/node-cli 0.51.3, the latest, pins it exactly and n8n's lint rules ban `overrides`; never in the published package. Moves when @n8n/node-cli does (fixed in 4.7.10)."
+
+[[IgnoredVulns]]
+id = "GHSA-p8wg-vrv2-v86f"
+ignoreUntil = 2027-01-07
+reason = "handlebars 4.7.9 (dev only): @n8n/node-cli 0.51.3, the latest, pins it exactly and n8n's lint rules ban `overrides`; never in the published package. Moves when @n8n/node-cli does (fixed in 4.7.10)."
+
+[[IgnoredVulns]]
+id = "GHSA-xw65-4hp5-5hc7"
+ignoreUntil = 2027-01-07
+reason = "handlebars 4.7.9 (dev only): @n8n/node-cli 0.51.3, the latest, pins it exactly and n8n's lint rules ban `overrides`; never in the published package. Moves when @n8n/node-cli does (fixed in 4.7.10)."
