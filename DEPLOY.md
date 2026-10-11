@@ -5,7 +5,7 @@ npm releases come only from `publish.yml`, on a `vX.Y.Z` tag: n8n verifies commu
 ## Who can publish
 
 - **npm:** Trusted Publishing only. The package trusts `datalegion-ai/datalegion-n8n`, workflow `publish.yml`, environment `npm`, and refuses token publishes ("Require two-factor authentication and disallow bypass 2fa tokens" in the package settings). There is no npm token anywhere.
-- **GitHub:** the `npm` environment deploys only from `v*.*.*` tags, and only repository admins can create, move or delete `v*` tags. Both live in datalegion-infra `stacks/github` (environments.tf, rulesets.tf); change them there.
+- **GitHub:** the `npm` environment deploys only from `v*.*.*` tags, and only repository admins can create, move or delete `v*` tags. Both are managed as code with the rest of our GitHub settings.
 - **Secrets:** only `DATALEGION_API_KEY` (internal test key, as in the SDK repos), for the live tests in `test.yml` and `publish.yml`. Pull requests from forks never receive it.
 
 ## Verification on n8n Cloud
