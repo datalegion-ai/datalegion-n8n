@@ -31,6 +31,16 @@ describe('live API', () => {
 		});
 	});
 
+	it('returns sample records in Sandbox Mode', async () => {
+		const [out] = await run(
+			[{ resource: 'person', operation: 'enrich', identifiers: { email: 'anyone@example.org' } }],
+			live,
+			{ sandbox: true },
+		);
+		expect(out).toMatchObject({ matched: true });
+		expect(out.legion_id).toMatch(/^sandbox_/);
+	});
+
 	it('enriches a company by domain', async () => {
 		const [out] = await run(
 			[{ resource: 'company', operation: 'enrich', identifiers: { domain: 'hubspot.com' } }],

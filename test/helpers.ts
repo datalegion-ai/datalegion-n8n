@@ -16,10 +16,11 @@ export type Request = (options: IHttpRequestOptions) => Promise<Response>;
 export const run = async (
 	items: IDataObject[],
 	request: Request,
-	{ continueOnFail = false } = {},
+	{ continueOnFail = false, sandbox = false } = {},
 ): Promise<IDataObject[]> => {
 	const context = {
 		continueOnFail: () => continueOnFail,
+		getCredentials: async () => ({ apiKey: 'test-key', sandbox }),
 		getInputData: (): INodeExecutionData[] => items.map(() => ({ json: {} })),
 		getNode: () => ({
 			name: 'Data Legion',

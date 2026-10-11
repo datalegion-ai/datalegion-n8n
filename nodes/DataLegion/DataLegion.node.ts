@@ -22,7 +22,7 @@ type Match = Record<string, IDataObject | undefined> & { match_metadata?: IDataO
 
 const IDENTIFIERS = { company: names(COMPANY_IDENTIFIERS), person: names(PERSON_IDENTIFIERS) };
 
-// One POST /<entity>/enrich per item. A 404 is "no match": the item comes out with
+// One POST /<entity>/enrich per item (/sandbox/<entity>/enrich in Sandbox Mode). A 404 is "no match": the item comes out with
 // matched: false instead of failing the workflow, so a list keeps every row.
 async function enrich(
 	this: IExecuteFunctions,
@@ -42,9 +42,12 @@ async function enrich(
 		'min_confidence',
 		'required_fields',
 	]);
+	// Sandbox Mode (the credential) sends enrich to the API's /sandbox/ mirror: sample records with
+	// every field, no credits.
+	const { sandbox } = await this.getCredentials('dataLegionApi');
 	const response = await post.call(
 		this,
-		`/${entity}/enrich`,
+		`${sandbox === true ? '/sandbox' : ''}/${entity}/enrich`,
 		{ ...identifiers, ...options },
 		i,
 		[404],

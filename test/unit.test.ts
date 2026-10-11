@@ -14,6 +14,19 @@ const reply =
 const person = { legion_id: 'p1', full_name: 'jane doe' };
 
 describe('enrich', () => {
+	it.each([
+		[true, 'https://api.datalegion.ai/sandbox/company/enrich'],
+		[false, 'https://api.datalegion.ai/company/enrich'],
+	])('Sandbox Mode %s calls %s', async (sandbox, url) => {
+		const seen: IHttpRequestOptions[] = [];
+		await run(
+			[{ resource: 'company', operation: 'enrich', identifiers: { domain: 'example.org' } }],
+			reply(200, { matches: [{ company: { legion_id: 'c1' } }] }, seen),
+			{ sandbox },
+		);
+		expect(seen.map((o) => o.url)).toEqual([url]);
+	});
+
 	it('posts only the filled identifiers and options, trimmed', async () => {
 		const seen: IHttpRequestOptions[] = [];
 		const [out] = await run(

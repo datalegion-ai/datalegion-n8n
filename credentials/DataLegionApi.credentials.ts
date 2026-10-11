@@ -26,6 +26,14 @@ export class DataLegionApi implements ICredentialType {
 			description:
 				'Your Data Legion API key, from API Keys in the Data Legion dashboard (https://www.datalegion.ai/dashboard/api-keys)',
 		},
+		{
+			displayName: 'Sandbox Mode',
+			name: 'sandbox',
+			type: 'boolean',
+			default: false,
+			description:
+				'Whether Enrich returns sample records instead of real data, without using credits. Use it to try a workflow; turn it off for real lookups. A key limited to certain endpoints needs the /sandbox/ ones added.',
+		},
 	];
 
 	// Trimmed: a key pasted with a stray space or newline would otherwise fail as "invalid".

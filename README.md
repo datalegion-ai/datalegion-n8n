@@ -26,6 +26,10 @@ The node can also be used as a tool by n8n's AI Agent.
 
 Create an API key under [API Keys](https://www.datalegion.ai/dashboard/api-keys) in the Data Legion dashboard, then add a **Data Legion API** credential in n8n and paste it in. n8n checks the key against `GET /credits`, which is free.
 
+## Sandbox Mode
+
+Turn on **Sandbox Mode** in the Data Legion credential to try a workflow without spending credits: Enrich then returns sample records with every field a real record has. Clean, Hash Email and Validate, which are free, still call the real API. If your API key is limited to certain endpoints, add the `/sandbox/` ones.
+
 ## Errors
 
 The node shows the API's own error message. Out of credits (402) and an endpoint the key is not scoped to (403) say so; for rate limits (429), turn on **Retry On Fail** in the node settings. With **On Error: Continue**, a failed item comes out as `{ "error": "..." }` and the rest of the items go on.
