@@ -39,6 +39,7 @@ async function enrich(
 		});
 	}
 	const options = compact(this.getNodeParameter('options', i, {}) as IDataObject, [
+		'industry',
 		'min_confidence',
 		'required_fields',
 	]);

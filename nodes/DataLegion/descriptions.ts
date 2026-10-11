@@ -5,6 +5,9 @@ type Field = { name: string; displayName: string; description: string };
 const toOptions = (fields: Field[]): INodeProperties[] =>
 	fields.map((field) => ({ ...field, type: 'string', default: '' }));
 
+// The API takes a full date, a year and month, or a year (enrich and validate alike).
+const BIRTH_DATE_HELP = 'Birth date as YYYY-MM-DD, YYYY-MM or YYYY';
+
 export const PERSON_IDENTIFIERS: Field[] = [
 	{ name: 'email', displayName: 'Email', description: 'Personal or work email address' },
 	{
@@ -41,7 +44,7 @@ export const PERSON_IDENTIFIERS: Field[] = [
 	{ name: 'state', displayName: 'State', description: 'State or region' },
 	{ name: 'country', displayName: 'Country', description: 'Country' },
 	{ name: 'postal_code', displayName: 'Postal Code', description: 'Postal code' },
-	{ name: 'birth_date', displayName: 'Birth Date', description: 'Birth date as YYYY-MM-DD' },
+	{ name: 'birth_date', displayName: 'Birth Date', description: BIRTH_DATE_HELP },
 	{
 		name: 'email_hash',
 		displayName: 'Email Hash',
@@ -94,7 +97,7 @@ export const DATA_FIELDS: Field[] = [
 	{ name: 'country', displayName: 'Country', description: 'Country, as a name or an ISO code' },
 	{ name: 'company', displayName: 'Company', description: 'Company name, website or domain' },
 	{ name: 'school', displayName: 'School', description: 'School name, website or domain' },
-	{ name: 'birth_date', displayName: 'Birth Date', description: 'Birth date as YYYY-MM-DD' },
+	{ name: 'birth_date', displayName: 'Birth Date', description: BIRTH_DATE_HELP },
 	{ name: 'domain', displayName: 'Domain', description: 'Company website domain' },
 	{ name: 'ticker_symbol', displayName: 'Ticker Symbol', description: 'Stock ticker symbol' },
 	{
@@ -103,6 +106,13 @@ export const DATA_FIELDS: Field[] = [
 		description: 'LinkedIn company page URL',
 	},
 ];
+
+// Examples of fields a match must have, from the API's own description of each entity's
+// required_fields: a field name the entity doesn't have answers HTTP 400.
+const REQUIRED_FIELD_EXAMPLES = {
+	company: { examples: 'domain,socials, type:public or socials.network:linkedin', placeholder: 'domain,socials' },
+	person: { examples: 'work_email or phones.type:mobile', placeholder: 'work_email' },
+};
 
 export const CLEAN_FIELDS = DATA_FIELDS.filter(
 	(field) => !['address', 'birth_date'].includes(field.name),
@@ -219,18 +229,32 @@ export const properties: INodeProperties[] = [
 		displayOptions: show('company', 'enrich'),
 		options: toOptions(COMPANY_IDENTIFIERS),
 	},
-	{
+	...(['person', 'company'] as const).map((entity) => ({
 		displayName: 'Options',
 		name: 'options',
-		type: 'collection',
+		type: 'collection' as const,
 		placeholder: 'Add Option',
 		default: {},
-		displayOptions: { show: { operation: ['enrich'] } },
+		displayOptions: show(entity, 'enrich'),
 		options: [
+			// Industry narrows a company name match; on its own it identifies nothing.
+			...(entity === 'company'
+				? [
+						{
+							displayName: 'Industry',
+							name: 'industry',
+							type: 'string' as const,
+							default: '',
+							placeholder: 'software development',
+							description:
+								'Narrows a match on company name, for example software development or banking. Not a lookup on its own.',
+						},
+					]
+				: []),
 			{
 				displayName: 'Minimum Match Confidence',
 				name: 'min_confidence',
-				type: 'options',
+				type: 'options' as const,
 				options: [
 					{ name: 'High', value: 'high' },
 					{ name: 'Low', value: 'low' },
@@ -242,14 +266,13 @@ export const properties: INodeProperties[] = [
 			{
 				displayName: 'Required Fields',
 				name: 'required_fields',
-				type: 'string',
+				type: 'string' as const,
 				default: '',
-				placeholder: 'work_email',
-				description:
-					'Comma-separated fields a match must have, or it counts as no match, for example work_email or phones.type:mobile',
+				placeholder: REQUIRED_FIELD_EXAMPLES[entity].placeholder,
+				description: `Comma-separated fields a match must have, or it counts as no match, for example ${REQUIRED_FIELD_EXAMPLES[entity].examples}`,
 			},
 		],
-	},
+	})),
 	{
 		displayName: 'Fields',
 		name: 'fields',
