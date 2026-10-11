@@ -3,8 +3,8 @@
 # release reaches npm (`prepublishOnly` refuses a publish from anywhere else).
 #
 # Auth: npm Trusted Publishing (OIDC), no token. npm trusts this repo, this workflow and the
-# `npm` environment, which only v*.*.* tags can deploy to; only repo admins can push those tags
-# (both in datalegion-infra stacks/github). The package refuses token publishes.
+# `npm` environment, which only v*.*.* tags can deploy to; only repo admins can push those tags.
+# The package refuses token publishes.
 
 name: Publish
 
