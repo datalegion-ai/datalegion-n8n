@@ -1,6 +1,7 @@
 import type { IHttpRequestOptions } from 'n8n-workflow';
 import { describe, expect, it } from 'vitest';
 
+import { properties } from '../nodes/DataLegion/descriptions';
 import { compact, errorMessage } from '../nodes/DataLegion/transport';
 import { type Request, run } from './helpers';
 
@@ -52,6 +53,35 @@ describe('enrich', () => {
 			...person,
 			match_metadata: { matched_on: ['email'] },
 		});
+	});
+
+	it('sends Industry with a company lookup, as an option', async () => {
+		const seen: IHttpRequestOptions[] = [];
+		await run(
+			[
+				{
+					resource: 'company',
+					operation: 'enrich',
+					identifiers: { name: 'HubSpot' },
+					options: { industry: ' software development ', required_fields: 'type:public' },
+				},
+			],
+			reply(200, { matches: [] }, seen),
+		);
+		expect(seen[0].body).toEqual({ name: 'HubSpot', industry: 'software development', required_fields: 'type:public' });
+	});
+
+	// Each entity's help shows its own fields: a field name the entity doesn't have answers 400.
+	it("gives each entity's options examples of its own fields", () => {
+		const options = (entity: string) =>
+			properties.find((p) => p.name === 'options' && p.displayOptions?.show?.resource?.includes(entity))
+				?.options as { name: string; description?: string }[];
+		const help = (entity: string) => options(entity).find((o) => o.name === 'required_fields')?.description;
+		expect(help('company')).toContain('type:public');
+		expect(help('company')).not.toMatch(/work_email|phones/);
+		expect(help('person')).toContain('work_email');
+		expect(options('company').map((o) => o.name)).toContain('industry');
+		expect(options('person').map((o) => o.name)).not.toContain('industry');
 	});
 
 	it('turns a 404 into an unmatched item and keeps the item pairing', async () => {

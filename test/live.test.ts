@@ -50,6 +50,21 @@ describe('live API', () => {
 		expect((out.match_metadata as { matched_on: string[] }).matched_on).toContain('domain');
 	});
 
+	// Every value the help suggests is one the API accepts: a 400 would fail the item.
+	it.each([
+		['person', { social_url: 'https://www.linkedin.com/in/satyanadella' }, { required_fields: 'work_email' }],
+		['person', { social_url: 'https://www.linkedin.com/in/satyanadella' }, { required_fields: 'phones.type:mobile' }],
+		['person', { full_name: 'Satya Nadella', birth_date: '1967' }, {}],
+		['person', { full_name: 'Satya Nadella', birth_date: '1967-08' }, {}],
+		['company', { domain: 'hubspot.com' }, { required_fields: 'domain,socials' }],
+		['company', { domain: 'hubspot.com' }, { required_fields: 'type:public' }],
+		['company', { domain: 'hubspot.com' }, { required_fields: 'socials.network:linkedin' }],
+		['company', { name: 'HubSpot' }, { industry: 'software development' }],
+	] as const)('accepts the %s example %j %j', async (resource, identifiers, options) => {
+		const [out] = await run([{ resource, operation: 'enrich', identifiers, options }], live);
+		expect(out).toHaveProperty('matched');
+	});
+
 	it('enriches a person by LinkedIn URL', async () => {
 		const [out] = await run(
 			[
