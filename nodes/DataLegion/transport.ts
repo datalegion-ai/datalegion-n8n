@@ -39,12 +39,17 @@ export const errorMessage = (status: number, body: unknown): string => {
 	return `Data Legion returned HTTP ${status}.`;
 };
 
+// What the user can do about each status the node can get back (search's 408 can't happen: the
+// node doesn't search). Every 5xx shares SERVER_HINT.
 const HINTS: Record<number, string> = {
+	400: 'Check the values mapped into this node; the message names the field the API rejected.',
 	401: 'Check the API key in the Data Legion credential.',
 	402: 'The account is out of credits for this endpoint. Add credits in the Data Legion dashboard.',
 	403: 'This API key is not allowed to call this endpoint. Check its scopes in the Data Legion dashboard.',
+	422: 'Check the values mapped into this node; the message names the field the API rejected.',
 	429: 'Rate limited. Turn on Retry On Fail in the node settings, or slow the workflow down.',
 };
+const SERVER_HINT = 'A temporary Data Legion error. Run the workflow again, or turn on Retry On Fail in the node settings.';
 
 // POSTs to the API and returns the full response; the caller decides what a non-2xx means
 // (enrich treats 404 as "no match"). Any other status at or above 400 becomes a NodeApiError
@@ -69,7 +74,7 @@ export async function post(
 		const message = errorMessage(status, response.body);
 		throw new NodeApiError(this.getNode(), (response.body ?? {}) as JsonObject, {
 			message,
-			description: HINTS[status],
+			description: HINTS[status] ?? (status >= 500 ? SERVER_HINT : undefined),
 			httpCode: String(status),
 			itemIndex,
 		});

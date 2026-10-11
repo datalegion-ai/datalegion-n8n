@@ -93,6 +93,21 @@ describe('enrich', () => {
 		});
 	});
 
+	it.each([
+		[400, 'Check the values'],
+		[422, 'Check the values'],
+		[403, 'scopes'],
+		[429, 'Retry On Fail'],
+		[500, 'temporary'],
+		[503, 'temporary'],
+	])('gives HTTP %i a hint', async (status, hint) => {
+		const failure = run(
+			[{ resource: 'person', operation: 'enrich', identifiers: { email: 'a@b.co' } }],
+			reply(status, { error: 'e', message: 'boom' }),
+		);
+		await expect(failure).rejects.toMatchObject({ httpCode: String(status), description: expect.stringContaining(hint) });
+	});
+
 	it('keeps going when Continue On Fail is on', async () => {
 		const out = await run(
 			[{ resource: 'person', operation: 'enrich', identifiers: { email: 'a@b.co' } }],
