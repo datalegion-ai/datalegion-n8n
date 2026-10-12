@@ -55,13 +55,13 @@
 		]
 	},
 	"devDependencies": {
-		"@n8n/node-cli": "0.51.4",
-		"@vitest/coverage-v8": "^5.0.3",
+		"@n8n/node-cli": "0.51.5",
+		"@vitest/coverage-v8": "^5.0.4",
 		"eslint": "9.39.5",
 		"lefthook": "^2.2.1",
 		"prettier": "3.9.10",
 		"typescript": "5.9.3",
-		"vitest": "^5.0.3"
+		"vitest": "^5.0.4"
 	},
 	"peerDependencies": {
 		"n8n-workflow": "*"
