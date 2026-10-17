@@ -9,7 +9,7 @@ export default defineConfig({
 	resolve: { alias: [{ find: /^n8n-workflow$/, replacement: 'n8n-workflow/dist/cjs/index.js' }] },
 	test: {
 		provide: { apiKey: process.env.DATALEGION_API_KEY ?? '' },
-		include: ['test/**/*.test.{ts,mjs}'],
+		include: ['test/**/*.test.{ts,mjs,mts}'],
 	},
 });
 
