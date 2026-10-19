@@ -13,6 +13,11 @@ if (!key) {
 }
 const live = liveRequest(key);
 
+// A real record for the check that needs a match, by its opaque id: no person's name or profile in the code.
+const KNOWN_PERSON_ID = '1eb88b4c-ce67-5d2f-8d40-b3fe8250222d';
+// The input checks only need the API to accept the value (a match or not), so they use made-up people.
+const MADE_UP_PROFILE = 'https://www.linkedin.com/in/jane-exampleton-0001';
+
 describe('live API', () => {
 	it("passes the credential's connection test", async () => {
 		const { baseURL, url, method } = new DataLegionApi().test.request;
@@ -52,10 +57,10 @@ describe('live API', () => {
 
 	// Every value the help suggests is one the API accepts: a 400 would fail the item.
 	it.each([
-		['person', { social_url: 'https://www.linkedin.com/in/satyanadella' }, { required_fields: 'work_email' }],
-		['person', { social_url: 'https://www.linkedin.com/in/satyanadella' }, { required_fields: 'phones.type:mobile' }],
-		['person', { full_name: 'Satya Nadella', birth_date: '1967' }, {}],
-		['person', { full_name: 'Satya Nadella', birth_date: '1967-08' }, {}],
+		['person', { social_url: MADE_UP_PROFILE }, { required_fields: 'work_email' }],
+		['person', { social_url: MADE_UP_PROFILE }, { required_fields: 'phones.type:mobile' }],
+		['person', { full_name: 'Jane Exampleton', birth_date: '1967' }, {}],
+		['person', { full_name: 'Jane Exampleton', birth_date: '1967-08' }, {}],
 		['company', { domain: 'hubspot.com' }, { required_fields: 'domain,socials' }],
 		['company', { domain: 'hubspot.com' }, { required_fields: 'type:public' }],
 		['company', { domain: 'hubspot.com' }, { required_fields: 'socials.network:linkedin' }],
@@ -65,19 +70,13 @@ describe('live API', () => {
 		expect(out).toHaveProperty('matched');
 	});
 
-	it('enriches a person by LinkedIn URL', async () => {
+	it('enriches a person by legion_id', async () => {
 		const [out] = await run(
-			[
-				{
-					resource: 'person',
-					operation: 'enrich',
-					identifiers: { social_url: 'https://www.linkedin.com/in/satyanadella' },
-				},
-			],
+			[{ resource: 'person', operation: 'enrich', identifiers: { legion_id: KNOWN_PERSON_ID } }],
 			live,
 		);
 		expect(out.matched).toBe(true);
-		expect(out.full_name).toContain('satya');
+		expect(out.legion_id).toBe(KNOWN_PERSON_ID);
 	});
 
 	it('returns an unmatched item for a person who is not there', async () => {
