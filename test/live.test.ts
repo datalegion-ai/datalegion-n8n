@@ -13,9 +13,9 @@ if (!key) {
 }
 const live = liveRequest(key);
 
-// A real record for the check that needs a match, by its opaque id: no person's name or profile in the code.
-const KNOWN_PERSON_ID = '1eb88b4c-ce67-5d2f-8d40-b3fe8250222d';
-// The input checks only need the API to accept the value (a match or not), so they use made-up people.
+// No real person in the code: the person enrich check reads the sandbox record (every field, no one's
+// data), and the input checks only need the API to accept the value (a match or not), so they use a
+// made-up person.
 const MADE_UP_PROFILE = 'https://www.linkedin.com/in/jane-exampleton-0001';
 
 describe('live API', () => {
@@ -70,13 +70,15 @@ describe('live API', () => {
 		expect(out).toHaveProperty('matched');
 	});
 
-	it('enriches a person by legion_id', async () => {
+	it('enriches a person by LinkedIn URL', async () => {
 		const [out] = await run(
-			[{ resource: 'person', operation: 'enrich', identifiers: { legion_id: KNOWN_PERSON_ID } }],
+			[{ resource: 'person', operation: 'enrich', identifiers: { social_url: MADE_UP_PROFILE } }],
 			live,
+			{ sandbox: true },
 		);
 		expect(out.matched).toBe(true);
-		expect(out.legion_id).toBe(KNOWN_PERSON_ID);
+		expect(out.legion_id).toMatch(/^sandbox_/);
+		expect(out.full_name).toEqual(expect.any(String));
 	});
 
 	it('returns an unmatched item for a person who is not there', async () => {
