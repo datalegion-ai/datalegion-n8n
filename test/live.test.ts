@@ -13,6 +13,11 @@ if (!key) {
 }
 const live = liveRequest(key);
 
+// No real person in the code: the person enrich check reads the sandbox record (every field, no one's
+// data), and the input checks only need the API to accept the value (a match or not), so they use a
+// made-up person.
+const MADE_UP_PROFILE = 'https://www.linkedin.com/in/jane-exampleton-0001';
+
 describe('live API', () => {
 	it("passes the credential's connection test", async () => {
 		const { baseURL, url, method } = new DataLegionApi().test.request;
@@ -52,10 +57,10 @@ describe('live API', () => {
 
 	// Every value the help suggests is one the API accepts: a 400 would fail the item.
 	it.each([
-		['person', { social_url: 'https://www.linkedin.com/in/satyanadella' }, { required_fields: 'work_email' }],
-		['person', { social_url: 'https://www.linkedin.com/in/satyanadella' }, { required_fields: 'phones.type:mobile' }],
-		['person', { full_name: 'Satya Nadella', birth_date: '1967' }, {}],
-		['person', { full_name: 'Satya Nadella', birth_date: '1967-08' }, {}],
+		['person', { social_url: MADE_UP_PROFILE }, { required_fields: 'work_email' }],
+		['person', { social_url: MADE_UP_PROFILE }, { required_fields: 'phones.type:mobile' }],
+		['person', { full_name: 'Jane Exampleton', birth_date: '1967' }, {}],
+		['person', { full_name: 'Jane Exampleton', birth_date: '1967-08' }, {}],
 		['company', { domain: 'hubspot.com' }, { required_fields: 'domain,socials' }],
 		['company', { domain: 'hubspot.com' }, { required_fields: 'type:public' }],
 		['company', { domain: 'hubspot.com' }, { required_fields: 'socials.network:linkedin' }],
@@ -67,17 +72,13 @@ describe('live API', () => {
 
 	it('enriches a person by LinkedIn URL', async () => {
 		const [out] = await run(
-			[
-				{
-					resource: 'person',
-					operation: 'enrich',
-					identifiers: { social_url: 'https://www.linkedin.com/in/satyanadella' },
-				},
-			],
+			[{ resource: 'person', operation: 'enrich', identifiers: { social_url: MADE_UP_PROFILE } }],
 			live,
+			{ sandbox: true },
 		);
 		expect(out.matched).toBe(true);
-		expect(out.full_name).toContain('satya');
+		expect(out.legion_id).toMatch(/^sandbox_/);
+		expect(out.full_name).toEqual(expect.any(String));
 	});
 
 	it('returns an unmatched item for a person who is not there', async () => {

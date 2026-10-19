@@ -36,7 +36,7 @@ The node shows the API's own error message. Out of credits (402) and an endpoint
 
 ## Compatibility
 
-Tested with n8n 2.42.
+Tested with n8n 2.43 (n8n-workflow 2.43.5, its stable release).
 
 ## Resources
 
