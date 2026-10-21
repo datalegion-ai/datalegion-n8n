@@ -5,7 +5,7 @@
 # unreachable code path, etc.). Always include a `reason` so the next
 # person knows why it's ignored.
 #
-# Every entry below is in dev tooling or the n8n-provided peer, pinned by n8n's own packages;
+# Every entry below is in dev tooling, pinned by n8n's own packages;
 # the published package has no dependencies (test/package.test.mjs). Recheck when they expire.
 
 [[IgnoredVulns]]
