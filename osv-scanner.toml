@@ -9,66 +9,6 @@
 # the published package has no dependencies (test/package.test.mjs). Recheck when they expire.
 
 [[IgnoredVulns]]
-id = "GHSA-3pq3-5fj3-cg6v"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-44g4-m2mj-wpvx"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-4hqw-qxg8-jxx2"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-542g-h47m-68v8"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-9fr6-4gfg-395g"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-c29m-xwm3-cm6r"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-j8rh-479h-cp32"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-m8m8-qj5v-23w3"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-mghh-pgcx-3jjj"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-r4gj-5m52-g5wh"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-vh66-26gq-q6x8"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
-id = "GHSA-x97p-jq2g-jp4f"
-ignoreUntil = 2027-01-07
-reason = "axios: n8n-workflow (peer dependency, supplied by n8n at runtime, never in the published package) pins axios exactly; n8n's lint rules ban `overrides`. Moves when n8n-workflow does."
-
-[[IgnoredVulns]]
 id = "GHSA-vfj7-8cjw-p6xm"
 ignoreUntil = 2027-01-07
 reason = "braces: dev-only (eslint/vitest tooling), no fixed version exists. Never in the published package."
