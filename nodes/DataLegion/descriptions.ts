@@ -110,8 +110,8 @@ export const DATA_FIELDS: Field[] = [
 // Examples of fields a match must have, from the API's own description of each entity's
 // required_fields: a field name the entity doesn't have answers HTTP 400.
 const REQUIRED_FIELD_EXAMPLES = {
-	company: { examples: 'domain,socials, type:public or socials.network:linkedin', placeholder: 'domain,socials' },
-	person: { examples: 'work_email or phones.type:mobile', placeholder: 'work_email' },
+	company: { examples: "'domain AND socials', 'type:public' or 'socials.network:linkedin'", placeholder: 'domain AND socials' },
+	person: { examples: "'work_email OR mobile_phone' or 'phones.type:mobile AND job_title'", placeholder: 'work_email OR mobile_phone' },
 };
 
 export const CLEAN_FIELDS = DATA_FIELDS.filter(
@@ -269,7 +269,7 @@ export const properties: INodeProperties[] = [
 				type: 'string' as const,
 				default: '',
 				placeholder: REQUIRED_FIELD_EXAMPLES[entity].placeholder,
-				description: `Comma-separated fields a match must have, or it counts as no match, for example ${REQUIRED_FIELD_EXAMPLES[entity].examples}`,
+				description: `Fields a match must have, combined with AND, OR and parentheses, or it counts as no match, for example ${REQUIRED_FIELD_EXAMPLES[entity].examples}`,
 			},
 		],
 	})),
