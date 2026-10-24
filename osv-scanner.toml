@@ -57,3 +57,8 @@ reason = "handlebars 4.7.9 (dev only): @n8n/node-cli pins it exactly and n8n's l
 id = "GHSA-xw65-4hp5-5hc7"
 ignoreUntil = 2027-01-07
 reason = "handlebars 4.7.9 (dev only): @n8n/node-cli pins it exactly and n8n's lint rules ban `overrides`; never in the published package. Moves when @n8n/node-cli does (fixed in 4.7.10)."
+
+[[IgnoredVulns]]
+id = "GHSA-mrhx-c7xc-m3w5"
+ignoreUntil = 2027-01-24
+reason = "zod 3.x: dev-only: @n8n/node-cli > @n8n/ai-node-sdk > @langchain pins zod 3; the fix is zod 4. Never in the published package; overrides are banned by n8n's lint rules."
