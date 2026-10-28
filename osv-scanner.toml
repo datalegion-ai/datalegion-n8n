@@ -62,3 +62,13 @@ reason = "handlebars 4.7.9 (dev only): @n8n/node-cli pins it exactly and n8n's l
 id = "GHSA-mrhx-c7xc-m3w5"
 ignoreUntil = 2027-01-24
 reason = "zod 3.x: pinned by n8n's own packages (the n8n-workflow peer, and @n8n/node-cli > @n8n/ai-node-sdk > @langchain); the fix is zod 4. This package ships no dependencies, so never in the published package; overrides are banned by n8n's lint rules."
+
+[[IgnoredVulns]]
+id = "GHSA-6pq8-jhm2-2vcw"
+ignoreUntil = 2027-01-28
+reason = "qs 6.15.2 (dev only): @n8n/node-cli > @n8n/ai-node-sdk > @n8n/ai-utilities > @n8n/backend-network pins qs exactly, and backend-network 1.19.3 (the latest) still pins 6.15.2; fixed in qs 6.16.1. Never in the published package; overrides are banned by n8n's lint rules. Lift when a backend-network release pins qs 6.16.1 or later."
+
+[[IgnoredVulns]]
+id = "GHSA-gcqx-w48m-w2h4"
+ignoreUntil = 2027-01-28
+reason = "deepmerge 4.3.1 (dev only): @n8n/node-cli > @n8n/ai-utilities > @langchain/community > @browserbasehq/stagehand; deepmerge 4.3.1 is the latest and no fix exists. Never in the published package. Lift when deepmerge >4.3.1 ships."
