@@ -72,3 +72,13 @@ reason = "qs 6.15.2 (dev only): @n8n/node-cli > @n8n/ai-node-sdk > @n8n/ai-utili
 id = "GHSA-gcqx-w48m-w2h4"
 ignoreUntil = 2027-01-28
 reason = "deepmerge 4.3.1 (dev only): @n8n/node-cli > @n8n/ai-utilities > @langchain/community > @browserbasehq/stagehand; deepmerge 4.3.1 is the latest and no fix exists. Never in the published package. Lift when deepmerge >4.3.1 ships."
+
+[[IgnoredVulns]]
+id = "GHSA-3g3m-2fjr-6pw4"
+ignoreUntil = 2027-02-03
+reason = "glob 11.1.0 (fixed in 14.0.2): dev-only, @n8n/node-cli 0.55.4 > rimraf 6.0.1 cleans our own build output; no AbortSignal reaches it. Never in the published package; overrides are banned by n8n's lint rules."
+
+[[IgnoredVulns]]
+id = "GHSA-g3hv-75wg-m249"
+ignoreUntil = 2027-02-03
+reason = "minimatch 10.2.6 and 3.1.5 (fixed only in 11.0.1): dev-only lint and build tooling (@n8n/node-cli's eslint stack, rimraf's glob) over our own configs and files. Never in the published package; overrides are banned by n8n's lint rules."
