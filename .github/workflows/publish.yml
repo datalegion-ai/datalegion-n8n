@@ -33,10 +33,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Node 24 ships npm 11, which trusted publishing needs.
+      # Node 26, the Node n8n's image runs; its npm (12) has the trusted publishing it needs (11.5.1+).
       - uses: actions/setup-node@v7
         with:
-          node-version: "24"
+          node-version: "26"
           registry-url: "https://registry.npmjs.org"
 
       - name: Check the tag matches package.json

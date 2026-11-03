@@ -24,9 +24,10 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # n8n's image ships Node 26 (26.12.1 in n8nio/n8n:latest); the step below keeps its engines floor, 24.
       - uses: actions/setup-node@v7
         with:
-          node-version: "24"
+          node-version: "26"
           cache: npm
 
       - name: Install dependencies
@@ -49,13 +50,13 @@ jobs:
           DATALEGION_API_KEY: ${{ secrets.DATALEGION_API_KEY }}
         run: npm test
 
-      # n8n's image ships Node 24 (its engines floor); this shows a Node 26 break before n8n moves.
-      - name: Set up Node 26
+      # n8n's engines floor is Node 24 (>=24.0.0), which self-hosted instances may still run.
+      - name: Set up Node 24
         uses: actions/setup-node@v7
         with:
-          node-version: "26"
+          node-version: "24"
 
-      - name: Test on Node 26 (unit + live API)
+      - name: Test on Node 24 (unit + live API)
         env:
           DATALEGION_API_KEY: ${{ secrets.DATALEGION_API_KEY }}
         run: npm test
