@@ -26,11 +26,9 @@ updates:
       # version can change what passes. Take it by hand after reading the changelog.
       - dependency-name: "@n8n/node-cli"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
-      # eslint and typescript move with @n8n/node-cli. `n8n-node lint` runs the eslint node-cli
-      # depends on (9.29.0 in 0.55.4), so a top-level eslint 10 would install beside it unused;
-      # lift when node-cli itself depends on eslint 10. TypeScript: the n8n starter pins 5.
-      - dependency-name: "eslint"
-        update-types: ["version-update:semver-major"]
+      # typescript stays on 5: the n8n starter pins it, and typescript-eslint (8.72.1) peers
+      # typescript <6.1.0. Lift when both allow a newer major. (eslint 10 was taken 2026-11-04:
+      # `n8n-node lint` runs the project's own eslint, and lint passes on 10.)
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
 
