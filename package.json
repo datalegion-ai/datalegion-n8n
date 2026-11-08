@@ -55,7 +55,7 @@
 		]
 	},
 	"devDependencies": {
-		"@n8n/node-cli": "0.55.4",
+		"@n8n/node-cli": "0.55.5",
 		"@vitest/coverage-v8": "^5.0.5",
 		"eslint": "10.14.0",
 		"lefthook": "^2.2.2",
