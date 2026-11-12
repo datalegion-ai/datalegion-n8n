@@ -26,9 +26,9 @@ updates:
       # version can change what passes. Take it by hand after reading the changelog.
       - dependency-name: "@n8n/node-cli"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
-      # typescript stays on 5 because the n8n starter pins it (node-cli 0.55.4); lift to 6 when the
-      # starter moves (node-cli 0.55.5 moves its own TypeScript to 6.0.2, so re-check on taking it).
-      # TypeScript 7 also waits on typescript-eslint, whose 8.72.1 peers typescript <6.1.0.
+      # typescript stays on 5 because the n8n starter pins it (5.9.2 in node-cli 0.56.1's templates);
+      # lift to 6 when the starter moves. TypeScript 7 also waits on typescript-eslint, whose 8.72.2
+      # peers typescript <6.1.0.
       # (eslint is not held: `n8n-node lint` runs the project's own eslint, 10.14.0 here.)
       - dependency-name: "typescript"
         update-types: ["version-update:semver-major"]
