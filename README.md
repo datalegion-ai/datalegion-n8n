@@ -6,7 +6,7 @@ Each n8n user connects their own Data Legion API key; what they get back and wha
 
 ## Installation
 
-On n8n Cloud and self-hosted n8n, search for **Data Legion** in the nodes panel once the node is verified. On self-hosted n8n you can also install it by name, `n8n-nodes-datalegion`, from **Settings > Community Nodes** ([n8n's guide](https://docs.n8n.io/integrations/community-nodes/installation/)).
+On n8n Cloud and self-hosted n8n, search for **Data Legion** in the nodes panel. On self-hosted n8n you can also install it by name, `n8n-nodes-datalegion`, from **Settings > Community Nodes** ([n8n's guide](https://docs.n8n.io/integrations/community-nodes/installation/)).
 
 ## Operations
 
