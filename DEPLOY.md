@@ -10,7 +10,7 @@ npm releases come only from `publish.yml`, on a `vX.Y.Z` tag: n8n verifies commu
 
 ## Verification on n8n Cloud
 
-Submit the package in the [n8n Creator Portal](https://creators.n8n.io/nodes). Once verified it shows in the nodes panel on n8n Cloud.
+Verified on n8n Cloud on 2026-10-21 through the [n8n Creator Portal](https://creators.n8n.io/nodes); it shows in the nodes panel there. Resubmit only if n8n asks.
 
 ## Every release
 
