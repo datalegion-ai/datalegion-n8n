@@ -49,7 +49,8 @@ const HINTS: Record<number, string> = {
 	422: 'Check the values mapped into this node; the message names the field the API rejected.',
 	429: 'Rate limited. Turn on Retry On Fail in the node settings, or slow the workflow down.',
 };
-const SERVER_HINT = 'A temporary Data Legion error. Run the workflow again, or turn on Retry On Fail in the node settings.';
+const SERVER_HINT =
+	'A temporary Data Legion error. Run the workflow again, or turn on Retry On Fail in the node settings.';
 
 // POSTs to the API and returns the full response; the caller decides what a non-2xx means
 // (enrich treats 404 as "no match"). Any other status at or above 400 becomes a NodeApiError
@@ -87,9 +88,17 @@ export async function post(
 export const compact = (values: IDataObject, keys: readonly string[]): IDataObject =>
 	Object.fromEntries(
 		keys
-			.map((key) => [
-				key,
-				typeof values[key] === 'string' ? (values[key] as string).trim() : values[key],
-			])
+			// A number mapped from a sheet (an NPI, a LinkedIn ID) goes as text: the API reads identifiers as strings.
+			.map((key) => {
+				const value = values[key];
+				return [
+					key,
+					typeof value === 'number'
+						? String(value)
+						: typeof value === 'string'
+							? value.trim()
+							: value,
+				];
+			})
 			.filter(([, value]) => value !== undefined && value !== null && value !== ''),
 	);

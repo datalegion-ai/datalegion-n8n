@@ -10,15 +10,15 @@ On n8n Cloud and self-hosted n8n, search for **Data Legion** in the nodes panel.
 
 ## Operations
 
-| Resource | Operation | Endpoint | Billed |
-| --- | --- | --- | --- |
-| Person | Enrich | `POST /person/enrich` | Yes, per your contract; no match is free |
-| Company | Enrich | `POST /company/enrich` | Yes, per your contract; no match is free |
-| Utility | Clean Data | `POST /utility/clean` | Free |
-| Utility | Hash Email | `POST /utility/hash/email` | Free |
-| Utility | Validate Data | `POST /utility/validate` | Free |
+| Resource | Operation     | Endpoint                   | Billed                                   |
+| -------- | ------------- | -------------------------- | ---------------------------------------- |
+| Person   | Enrich        | `POST /person/enrich`      | Yes, per your contract; no match is free |
+| Company  | Enrich        | `POST /company/enrich`     | Yes, per your contract; no match is free |
+| Utility  | Clean Data    | `POST /utility/clean`      | Free                                     |
+| Utility  | Hash Email    | `POST /utility/hash/email` | Free                                     |
+| Utility  | Validate Data | `POST /utility/validate`   | Free                                     |
 
-**Enrich** looks up one record per input item, by any identifiers you add (email, phone, social profile URL, or a name plus one more detail for a person; domain, name, social profile URL or ticker for a company). A match comes out as the full profile with `matched: true` and `match_metadata`; no match comes out as `{ "matched": false }`, so a list keeps every row. Options: **Minimum Match Confidence**, **Required Fields** (a match without them counts as no match) and, for a company, **Industry** (narrows a match on company name).
+**Enrich** looks up one record per input item, by any identifiers you add (email, phone, social profile URL, NPI (a US healthcare provider's 10-digit National Provider Identifier; your plan must include NPI), or a name plus one more detail for a person; domain, name, social profile URL or ticker for a company). A match comes out as the full profile with `matched: true` and `match_metadata`; no match comes out as `{ "matched": false }`, so a list keeps every row. Options: **Minimum Match Confidence**, **Required Fields** (a match without them counts as no match) and, for a company, **Industry** (narrows a match on company name).
 
 The node can also be used as a tool by n8n's AI Agent.
 

@@ -30,6 +30,8 @@
 		"build:watch": "tsc --watch",
 		"dev": "n8n-node dev",
 		"lint": "n8n-node lint",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
 		"lint:fix": "n8n-node lint --fix",
 		"typecheck": "tsc -p tsconfig.test.json",
 		"test": "vitest run",
