@@ -52,6 +52,11 @@ export const PERSON_IDENTIFIERS: Field[] = [
 	},
 	{ name: 'linkedin_id', displayName: 'LinkedIn ID', description: 'LinkedIn member ID' },
 	{
+		name: 'npi',
+		displayName: 'NPI',
+		description: '10-digit National Provider Identifier of a US healthcare provider',
+	},
+	{
 		name: 'legion_id',
 		displayName: 'Data Legion ID',
 		description: 'Data Legion ID from an earlier lookup',

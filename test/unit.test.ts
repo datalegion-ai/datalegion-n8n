@@ -98,6 +98,15 @@ describe('enrich', () => {
 		]);
 	});
 
+	it('posts an NPI as a person identifier', async () => {
+		const seen: IHttpRequestOptions[] = [];
+		await run(
+			[{ resource: 'person', operation: 'enrich', identifiers: { npi: '1234567893' } }],
+			reply(200, { matches: [{ person, match_metadata: { matched_on: ['npi'] } }] }, seen),
+		);
+		expect(seen[0]).toMatchObject({ url: 'https://api.datalegion.ai/person/enrich', body: { npi: '1234567893' } });
+	});
+
 	it('refuses an item with no identifier before calling the API', async () => {
 		const seen: IHttpRequestOptions[] = [];
 		await expect(
