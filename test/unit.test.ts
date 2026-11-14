@@ -68,15 +68,21 @@ describe('enrich', () => {
 			],
 			reply(200, { matches: [] }, seen),
 		);
-		expect(seen[0].body).toEqual({ name: 'HubSpot', industry: 'software development', required_fields: 'type:public' });
+		expect(seen[0].body).toEqual({
+			name: 'HubSpot',
+			industry: 'software development',
+			required_fields: 'type:public',
+		});
 	});
 
 	// Each entity's help shows its own fields: a field name the entity doesn't have answers 400.
 	it("gives each entity's options examples of its own fields", () => {
 		const options = (entity: string) =>
-			properties.find((p) => p.name === 'options' && p.displayOptions?.show?.resource?.includes(entity))
-				?.options as { name: string; description?: string }[];
-		const help = (entity: string) => options(entity).find((o) => o.name === 'required_fields')?.description;
+			properties.find(
+				(p) => p.name === 'options' && p.displayOptions?.show?.resource?.includes(entity),
+			)?.options as { name: string; description?: string }[];
+		const help = (entity: string) =>
+			options(entity).find((o) => o.name === 'required_fields')?.description;
 		expect(help('company')).toContain('type:public');
 		expect(help('company')).not.toMatch(/work_email|phones/);
 		expect(help('person')).toContain('work_email');
@@ -96,6 +102,27 @@ describe('enrich', () => {
 			{ matched: false, _paired: { item: 0 } },
 			{ matched: false, _paired: { item: 1 } },
 		]);
+	});
+
+	it('posts an NPI as a person identifier', async () => {
+		const seen: IHttpRequestOptions[] = [];
+		await run(
+			[{ resource: 'person', operation: 'enrich', identifiers: { npi: '1234567893' } }],
+			reply(200, { matches: [{ person, match_metadata: { matched_on: ['npi'] } }] }, seen),
+		);
+		expect(seen[0]).toMatchObject({
+			url: 'https://api.datalegion.ai/person/enrich',
+			body: { npi: '1234567893' },
+		});
+	});
+
+	it('posts a numeric NPI as text', async () => {
+		const seen: IHttpRequestOptions[] = [];
+		await run(
+			[{ resource: 'person', operation: 'enrich', identifiers: { npi: 1234567893 } }],
+			reply(200, { matches: [{ person, match_metadata: { matched_on: ['npi'] } }] }, seen),
+		);
+		expect(seen[0]).toMatchObject({ body: { npi: '1234567893' } });
 	});
 
 	it('refuses an item with no identifier before calling the API', async () => {
@@ -148,7 +175,10 @@ describe('enrich', () => {
 			[{ resource: 'person', operation: 'enrich', identifiers: { email: 'a@b.co' } }],
 			reply(status, { error: 'e', message: 'boom' }),
 		);
-		await expect(failure).rejects.toMatchObject({ httpCode: String(status), description: expect.stringContaining(hint) });
+		await expect(failure).rejects.toMatchObject({
+			httpCode: String(status),
+			description: expect.stringContaining(hint),
+		});
 	});
 
 	it('keeps going when Continue On Fail is on', async () => {
@@ -258,12 +288,12 @@ describe('errorMessage', () => {
 });
 
 describe('compact', () => {
-	it('drops blanks and trims strings, keeping other types', () => {
+	it('drops blanks, trims strings and sends numbers as text, keeping other types', () => {
 		expect(
 			compact({ a: ' x ', b: '', c: null, d: 0, e: false }, ['a', 'b', 'c', 'd', 'e', 'f']),
 		).toEqual({
 			a: 'x',
-			d: 0,
+			d: '0',
 			e: false,
 		});
 	});

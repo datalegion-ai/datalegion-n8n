@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-datalegion",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"description": "n8n node for Data Legion person and company enrichment and free data utilities",
 	"license": "MIT",
 	"homepage": "https://www.datalegion.ai",
@@ -30,6 +30,8 @@
 		"build:watch": "tsc --watch",
 		"dev": "n8n-node dev",
 		"lint": "n8n-node lint",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
 		"lint:fix": "n8n-node lint --fix",
 		"typecheck": "tsc -p tsconfig.test.json",
 		"test": "vitest run",
@@ -55,11 +57,11 @@
 		]
 	},
 	"devDependencies": {
-		"@n8n/node-cli": "0.56.1",
+		"@n8n/node-cli": "0.56.4",
 		"@vitest/coverage-v8": "^5.0.5",
 		"eslint": "10.14.0",
 		"lefthook": "^2.2.2",
-		"prettier": "3.9.10",
+		"prettier": "3.10.1",
 		"typescript": "5.9.3",
 		"vitest": "^5.0.5"
 	},
