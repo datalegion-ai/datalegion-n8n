@@ -288,12 +288,12 @@ describe('errorMessage', () => {
 });
 
 describe('compact', () => {
-	it('drops blanks and trims strings, keeping other types', () => {
+	it('drops blanks, trims strings and sends numbers as text, keeping other types', () => {
 		expect(
 			compact({ a: ' x ', b: '', c: null, d: 0, e: false }, ['a', 'b', 'c', 'd', 'e', 'f']),
 		).toEqual({
 			a: 'x',
-			d: 0,
+			d: '0',
 			e: false,
 		});
 	});
