@@ -1,2 +1,2 @@
-# A byte-for-byte copy of web's __tests__/_conventions.ts, held equal by the fleet's drift check.
+# Vendored from the website repository's __tests__/_conventions.ts (see its header); kept as copied.
 test/_conventions.mts
