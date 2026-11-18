@@ -10,6 +10,9 @@ export default defineConfig({
 	test: {
 		provide: { apiKey: process.env.DATALEGION_API_KEY ?? '' },
 		include: ['test/**/*.test.{ts,mjs,mts}'],
+		// One limit for the suite, to catch a hang: the package test builds and packs the node, which
+		// took 5.4s on a CI runner against the 5s default (2026-11-18).
+		testTimeout: 30_000,
 	},
 });
 
