@@ -52,3 +52,11 @@ reason = "glob 11.1.0 (fixed in 14.0.2): dev-only, @n8n/node-cli 0.55.4 > rimraf
 id = "GHSA-g3hv-75wg-m249"
 ignoreUntil = 2027-02-03
 reason = "minimatch 10.2.6 and 3.1.5 (fixed only in 11.0.1): dev-only lint and build tooling (@n8n/node-cli's eslint stack, rimraf's glob) over our own configs and files. Never in the published package; overrides are banned by n8n's lint rules."
+
+# picomatch 2.3.2 (GHSA-fc5q-39xc-vjpf, no fixed release yet: affected through 4.0.7): a crafted
+# extglob pattern such as +(*) backtracks exponentially. It reaches us only through vitest, vite, micromatch and tinyglobby (dev dependencies only; the package declares no runtime dependencies),
+# matching our own test and lint globs; nothing builds a glob from input. Lift when a picomatch
+# release past 4.0.7 fixes it.
+[[IgnoredVulns]]
+id = "GHSA-fc5q-39xc-vjpf"
+reason = "Dev and test tooling only, matching our own globs; no fixed picomatch release yet. Lift when one ships."
