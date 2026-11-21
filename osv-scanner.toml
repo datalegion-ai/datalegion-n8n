@@ -10,53 +10,40 @@
 
 [[IgnoredVulns]]
 id = "GHSA-528h-pc64-c93x"
-ignoreUntil = 2027-01-07
+effectiveUntil = 2027-01-07
 reason = "stream-json: dev-only: @n8n/node-cli > @n8n/backend-common pins stream-json 1.x. Never in the published package; overrides are banned by n8n's lint rules."
 
 [[IgnoredVulns]]
 id = "GHSA-hqr4-qq8f-hg3x"
-ignoreUntil = 2027-01-07
+effectiveUntil = 2027-01-07
 reason = "stream-json: dev-only: @n8n/node-cli > @n8n/backend-common pins stream-json 1.x. Never in the published package; overrides are banned by n8n's lint rules."
 
 [[IgnoredVulns]]
 id = "GHSA-mjw6-4jj6-33hc"
-ignoreUntil = 2027-01-07
+effectiveUntil = 2027-01-07
 reason = "stream-json: dev-only: @n8n/node-cli > @n8n/backend-common pins stream-json 1.x. Never in the published package; overrides are banned by n8n's lint rules."
 
 [[IgnoredVulns]]
 id = "GHSA-w5hq-g745-h8pq"
-ignoreUntil = 2027-01-07
+effectiveUntil = 2027-01-07
 reason = "uuid: dev-only: @n8n/node-cli > @langchain/classic and @langchain/community pin uuid 10. Never in the published package; overrides are banned by n8n's lint rules."
 
 [[IgnoredVulns]]
 id = "GHSA-mrhx-c7xc-m3w5"
-ignoreUntil = 2027-01-24
+effectiveUntil = 2027-01-24
 reason = "zod 3.x: pinned by n8n's own packages (the n8n-workflow peer, and @n8n/node-cli > @n8n/ai-node-sdk > @langchain); the fix is zod 4. This package ships no dependencies, so never in the published package; overrides are banned by n8n's lint rules."
 
 [[IgnoredVulns]]
 id = "GHSA-6pq8-jhm2-2vcw"
-ignoreUntil = 2027-01-28
+effectiveUntil = 2027-01-28
 reason = "qs 6.15.2 (dev only): @n8n/node-cli > @n8n/ai-node-sdk > @n8n/ai-utilities > @n8n/backend-network pins qs exactly, and backend-network 1.19.3 (the latest) still pins 6.15.2; fixed in qs 6.16.1. Never in the published package; overrides are banned by n8n's lint rules. Lift when a backend-network release pins qs 6.16.1 or later."
 
 [[IgnoredVulns]]
-id = "GHSA-gcqx-w48m-w2h4"
-ignoreUntil = 2027-01-28
-reason = "deepmerge 4.3.1 (dev only): @n8n/node-cli > @n8n/ai-utilities > @langchain/community > @browserbasehq/stagehand; deepmerge 4.3.1 is the latest and no fix exists. Never in the published package. Lift when deepmerge >4.3.1 ships."
-
-[[IgnoredVulns]]
 id = "GHSA-3g3m-2fjr-6pw4"
-ignoreUntil = 2027-02-03
+effectiveUntil = 2027-02-03
 reason = "glob 11.1.0 (fixed in 14.0.2): dev-only, @n8n/node-cli 0.55.4 > rimraf 6.0.1 cleans our own build output; no AbortSignal reaches it. Never in the published package; overrides are banned by n8n's lint rules."
 
 [[IgnoredVulns]]
 id = "GHSA-g3hv-75wg-m249"
-ignoreUntil = 2027-02-03
+effectiveUntil = 2027-02-03
 reason = "minimatch 10.2.6 and 3.1.5 (fixed only in 11.0.1): dev-only lint and build tooling (@n8n/node-cli's eslint stack, rimraf's glob) over our own configs and files. Never in the published package; overrides are banned by n8n's lint rules."
-
-# picomatch 2.3.2 and 4.0.7 (GHSA-fc5q-39xc-vjpf, no fixed release yet: affected through 4.0.7): a crafted
-# extglob pattern such as +(*) backtracks exponentially. It reaches us only through vitest, vite, micromatch and tinyglobby (dev dependencies only; the package declares no runtime dependencies),
-# matching our own test and lint globs; nothing builds a glob from input. Lift when a picomatch
-# release past 4.0.7 fixes it.
-[[IgnoredVulns]]
-id = "GHSA-fc5q-39xc-vjpf"
-reason = "Dev and test tooling only, matching our own globs; no fixed picomatch release yet. Lift when one ships."
