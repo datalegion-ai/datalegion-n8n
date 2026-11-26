@@ -32,7 +32,7 @@ export class DataLegionApi implements ICredentialType {
 			type: 'boolean',
 			default: false,
 			description:
-				'Whether Enrich returns sample records instead of real data, without using credits. Use it to try a workflow; turn it off for real lookups. A key limited to certain endpoints needs the /sandbox/ ones added.',
+				'Whether Enrich returns sample records instead of real data, without using credits. Use it to try a workflow; turn it off for real lookups.',
 		},
 	];
 
