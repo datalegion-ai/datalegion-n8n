@@ -28,7 +28,7 @@ Create an API key under [API Keys](https://www.datalegion.ai/dashboard/api-keys)
 
 ## Sandbox Mode
 
-Turn on **Sandbox Mode** in the Data Legion credential to try a workflow without spending credits: Enrich then returns sample records with every field a real record has. Clean, Hash Email and Validate, which are free, still call the real API. If your API key is limited to certain endpoints, add the `/sandbox/` ones.
+Turn on **Sandbox Mode** in the Data Legion credential to try a workflow without spending credits: Enrich then returns sample records with every field a real record has. Clean, Hash Email and Validate, which are free, still call the real API.
 
 ## Errors
 
