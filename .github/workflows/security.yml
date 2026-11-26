@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   security:
-    name: Security Scan
+    name: Security scan
     runs-on: ubuntu-26.04
     timeout-minutes: 5
     steps:
@@ -38,7 +38,7 @@ jobs:
         run: ./osv-scanner scan source --lockfile=package-lock.json --format=table
 
   actionlint:
-    name: actionlint
+    name: Lint workflows
     runs-on: ubuntu-26.04
     timeout-minutes: 5
     steps:
@@ -61,3 +61,5 @@ jobs:
           tar -xzf "/tmp/$f" -C /tmp actionlint
           command -v shellcheck >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck; }
           /tmp/actionlint -color
+      - name: Check workflow names use sentence case
+        run: python3 .github/scripts/check_workflow_names.py
